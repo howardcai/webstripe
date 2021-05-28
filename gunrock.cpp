@@ -196,6 +196,8 @@ int main(int argc, char *argv[]) {
   Document d;
   d.Parse(config.str());
   db->stripe_secret_key = d["stripe_secret_key"].GetString();
+
+  cout << d["stripe_secret_key"].GetString() << endl;
   
   while(true) {
     sync_print("waiting_to_accept", "");
