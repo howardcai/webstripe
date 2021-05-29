@@ -13,8 +13,26 @@ HttpService::HttpService(string pathPrefix) {
 }
 
 User *HttpService::getAuthenticatedUser(HTTPRequest *request)  {
-  // TODO: implement this function
-  return NULL;
+
+  bool has_authtoken = false;
+  string authtoken;
+  std::map<std::string, User *> ::iterator it;
+
+  has_authtoken = request->hasAuthToken();
+  if (!has_authtoken) {
+      throw ClientError::unauthorized();
+  }
+
+  authtoken = request->getAuthToken();
+
+  it = m_db->auth_tokens.find(authtoken);
+  if (it == m_db->auth_tokens.end()) {
+    // did not find auth token from client. error.
+    throw ClientError::notFound();
+  }
+
+  return it->second;
+
 }
 
 string HttpService::pathPrefix() {

@@ -1,0 +1,292 @@
+    1  pwd
+    2  ls -al
+    3  ps -ef | grep root
+    4  exit
+    5  sudo
+    6  sudo root
+    7  pwd
+    8  sudo su - 
+    9  exit
+   10  ls -al 
+   11  pwd
+   12  ls -la
+   13  pwd
+   14  ls -la /vagrant/
+   15  ls -la /vagrant/ | more
+   16  pwd
+   17  ls 
+   18  cd /vagrant/
+   19  ls 
+   20  pwd
+   21  ls -al Downloads/*.zip
+   22  cp Downloads/Ex_Files_Learning_Nginx.zip ~/
+   23  pwd
+   24  ls -al
+   25  cd  ~
+   26  ls -al
+   27  unzip -h
+   28  which unzip
+   29  apt install unzip
+   30  sudo apt install unzip
+   31  which unzip
+   32  unzip -h
+   33  pwd
+   34  ls -al
+   35  unzip Ex_Files_Learning_Nginx.zip 
+   36  ls -al
+   37  cd Ex_Files_Learning_Nginx
+   38  ls -al
+   39  cd Exercise\ Files/
+   40  ls -al
+   41  cd ch01
+   42  pwd
+   43  more README.txt 
+   44  pwd
+   45  ls -al
+   46  cd Ch01/
+   47  ls -al
+   48  cd 01_01
+   49  ls -al
+   50  more Vagrantfile 
+   51  pwd
+   52  ls -al
+   53  more Solution/
+   54  more Solution/*
+   55  pwd
+   56  ls -al
+   57  cd ..
+   58  ls -al
+   59  cd 01_02
+   60  ls -al
+   61  more README.txt 
+   62  ls -al
+   63  more Vagrantfile 
+   64  q
+   65  ls -al
+   66  more provision.sh 
+   67  cd ..
+   68  ls -al
+   69  cd 01_03
+   70  ls -al
+   71  more Solution/
+   72  more Solution//*
+   73  ls -al
+   74  cd ..
+   75  ls -al
+   76  ls -la 01_05
+   77  ls -la 01_05/README.txt 
+   78  more 01_05/README.txt 
+   79  pwd
+   80  ls -al
+   81  cd 01_05/Solution/
+   82  ls -al
+   83  vi provision.sh 
+   84  more Vagrantfile 
+   85  ls -al
+   86  vi wisdompetmed.local.conf 
+   87  pwd
+   88  cd ..
+   89  ls -al
+   90  cd ..
+   91  cd 01_06
+   92  ls -al
+   93  more Solution/
+   94  cd Solution/
+   95  ls -al
+   96  more wisdompetmed.local.conf 
+   97  pwd
+   98  cd ..
+   99  ls -al
+  100  more Solution/
+  101  more Solution/*
+  102  pwd
+  103  ls -al
+  104  more README.txt 
+  105  pwd
+  106  ls -al
+  107  cd ..
+  108  cd 01_07
+  109  ls -al
+  110  more README.txt 
+  111  ls -al
+  112  pwd
+  113  more README.txt 
+  114  pwd
+  115  unzip /home/vagrant/Ex_Files_Learning_Nginx/Exercise Files/Ch01/01_07/Wisdom_Pet_Medicine_responsive_website_LYNDA_12773 -d Wisdom_Pet_Medicine_responsive_website_LYNDA_12773
+  116  pwd
+  117  unzip Wisdom_Pet_Medicine_responsive_website_LYNDA_12773.zip -d /var/www/wisdompetmed.local 
+  118  sudo unzip Wisdom_Pet_Medicine_responsive_website_LYNDA_12773.zip -d /var/www/wisdompetmed.local 
+  119  ls -al /var/www/wisdompetmed.local/
+  120  ls -al /var/www/wisdompetmed.local/*
+  121  more README.txt 
+  122  find /var/www/wisdompetmed.local -type f -exec chmod 644 {} \; -print
+  123  sudo find /var/www/wisdompetmed.local -type f -exec chmod 644 {} \; -print
+  124  sudo find /var/www/wisdompetmed.local -type d -exec chmod 755 {} \; -print
+  125  ls -al
+  126  more README.txt 
+  127  ls -la /etc/nginx/conf.d/
+  128  pwd
+  129  cd ..
+  130  cd 01_06
+  131  ls -al
+  132  more README.txt 
+  133  pwd
+  134  cd ..
+  135  ls -al
+  136  cd 01_07
+  137  ls -al
+  138  vi wisdompetmed.local.conf 
+  139  cp wisdompetmed.local.conf /etc/nginx/conf.d/wisdompetmed.local.conf
+  140  sudo wisdompetmed.local.conf /etc/nginx/conf.d/wisdompetmed.local.conf
+  141  sudo cp wisdompetmed.local.conf /etc/nginx/conf.d/wisdompetmed.local.conf
+  142  ls -al /etc/nginx/conf.d/wisdompetmed.local.conf 
+  143  more /etc/nginx/conf.d/wisdompetmed.local.conf 
+  144  ls -al
+  145  pwd
+  146  more README.txt 
+  147  more ../Ch01_06/README.txt 
+  148  more ../01_06/README.txt 
+  149  nginx -t
+  150  sudo nginx -t
+  151  ls -la /etc/nginx/sites-enabled/
+  152   /etc/nginx/sites-available/default 
+  153  more /etc/nginx/sites-available/default 
+  154  ls -la /etc/nginx/sites-enabled/
+  155  unlink /etc/nginx/sites-enabled/default 
+  156  sudo unlink /etc/nginx/sites-enabled/default 
+  157  sudo nginx -t
+  158  systemctl reload nginx
+  159  sudo systemctl reload nginx
+  160  pwd
+  161  cd /var/www/
+  162  ls -al
+  163  cd wisdompetmed.local/
+  164  ls -al
+  165  more index.html 
+  166  pwd
+  167  ls -al
+  168  ls -al js
+  169  more js/myscript.js 
+  170  ls -al
+  171  more 50x.html 
+  172  ls -la
+  173  pwd
+  174  vi index.html 
+  175  pwd
+  176  ls -al
+  177  cd ..
+  178  cd 
+  179  pd
+  180  pwd
+  181  cd Ex_Files_Learning_Nginx
+  182  ls -la
+  183  cd Exercise\ Files/
+  184  ls -al
+  185  cd Ch01
+  186  ls -al
+  187  ls -al 01_08
+  188  more 01_08/Vagrantfile 
+  189  more 01_09/
+  190  more 01_09/*
+  191  pwd
+  192  ls -al
+  193  cd 01_09
+  194  ls -al README.txt 
+  195  more README.txt 
+  196  cat /var/log/nginx/wisdompetmed.images.access.log 
+  197  cat /var/log/nginx/wisdompetmed.images.error.log 
+  198  cat /var/log/nginx/wisdompetmed.images.access.log 
+  199  cat /var/log/nginx/access.log 
+  200  less /var/log/nginx/access.log 
+  201  tail -f /var/log/nginx/access.log 
+  202  tail -f /var/log/nginx/wisdompetmed.images.access.log 
+  203  ls -al
+  204  pwd
+  205  cd /var/www/wisdompetmed.local/
+  206  ls -al
+  207  ls -al images/
+  208  ls -al 
+  209  more 404.html 
+  210  more 50x.html 
+  211  pwd
+  212  ls -al
+  213  historyy
+  214  history
+  215  history > /vagrant/nginx/history-cmds2
+  216  exit
+  217  pwd
+  218  ls -la /etc/nginx/conf.d
+  219  vi /etc/nginx/conf.d/wisdompetmed.local.conf 
+  220  sudo vi /etc/nginx/conf.d/wisdompetmed.local.conf 
+  221  sudo su - 
+  222  pwd
+  223  history
+  224  exit
+  225  pwd
+  226  ls -al
+  227  exit
+  228  pwd
+  229  exit
+  230  pwd
+  231  password
+  232  which password
+  233  ls -al
+  234  exit
+  235  ls -al
+  236  ping 127.0.0.1
+  237  exit
+  238  pwd
+  239  ls -al
+  240  pwd
+  241  exit
+  242  curl http://localhost:8080/auth-tokens -d username=kingst -d password=123456 {"auth_token": "2-fobvOk3LXY7v_6NYeuDnTu","user_id": "a2zFGP53ZHk5uW6IjEh9Qxep"}
+  243  history | grep curl
+  244  curl http://localhost:8080/auth-tokens -d username=kingst -d password=123456 
+  245  curl http://localhost:8080/auth-tokens -d username=kingst -d password=12345 
+  246  curl http://localhost:8080/auth-tokens -d username=kingst -d password=12 
+  247  curl http://localhost:8080/auth-tokens -d username=kingst -d password=123456
+  248  curl http://localhost:8080/auth-tokens -d username=kingst -d password=1234
+  249  curl http://localhost:8080/auth-tokens -d username=kingst -d password=123456
+  250  curl http://localhost:8080/auth-tokens -d username=kingst -d password=1234
+  251  curl http://localhost:8080/auth-tokens -d username=Honey -d password=1234
+  252  curl -X http://localhost:8080/auth-tokens -d username=kingst -d password=1234
+  253  curl -I http://localhost:8080/auth-tokens -d username=kingst -d password=1234
+  254  curl http://localhost:8080/auth-tokens -d username=Honey -d password=1234
+  255  curl -X HEAD http://localhost:8080/auth-tokens -d username=Honey -d password=1234
+  256  curl http://localhost:8080/auth-tokens -d username=Honey -d password=1234
+  257  curl -I http://localhost:8080/auth-tokens -d username=kingst -d password=1234
+  258  curl http://localhost:8080/auth-tokens -d username=kingst -d password=1234
+  259  curl -X DELETE -H 'x-auth-token:37QWEfs4R1xdfo7UqY7zW3xx' http://localhost:8080/auth-tokens/-Q40kL8FrEG7pf-bHKFU1F59
+  260  curl http://localhost:8080/auth-tokens -d username=kingst -d password=12345
+  261  curl http://localhost:8080/auth-tokens -d username=kingst -d password=1234
+  262  curl -X DELETE -H 'x-auth-token:37QWEfs4R1xdfo7UqY7zW3xx' http://localhost:8080/auth-tokens/-Q40kL8FrEG7pf-bHKFU1F59
+  263  curl http://localhost:8080/auth-tokens -d username=kingst -d password=123456
+  264  curl http://localhost:8080/auth-tokens -d username=honey -d password=123456
+  265  curl -X DELETE http://localhost:8080/auth-tokens/-Q40kL8FrEG7pf-bHKFU1F59
+  266  curl -X DELETE -H 'x-auth-token:37QWEfs4R1xdfo7UqY7zW3xx' http://localhost:8080/auth-tokens/-Q40kL8FrEG7pf-bHKFU1F59
+  267  curl -X DELETE -H 'ahIafjwIxHUU_nNDd_QaP4Hl' http://localhost:8080/auth-tokens/-Q40kL8FrEG7pf-bHKFU1F59
+  268  curl -X DELETE -H 'x-auth-token:ahIafjwIxHUU_nNDd_QaP4Hl' http://localhost:8080/auth-tokens/-Q40kL8FrEG7pf-bHKFU1F59
+  269  curl -X DELETE -H 'x-auth-token:ahIafjwIxHUU_nNDd_QaP4Hl' http://localhost:8080/auth-tokens/lkO8rZpsB12WfVLn4F-0lgis
+  270  curl -X DELETE -H 'x-auth-token:ahIafjwIxHUU_nNDd_QaP4Hl' http://localhost:8080/auth-tokens/ahIafjwIxHUU_nNDd_QaP4Hl
+  271  curl http://localhost:8080/auth-tokens -d username=kingst -d password=123456
+  272  curl http://localhost:8080/auth-tokens -d username=honey -d password=123456
+  273  curl -X DELETE -H 'x-auth-token:70kMOnng90WEk3W5TXHC_N2s' http://localhost:8080/auth-tokens/70kMOnng90WEk3W5TXHC_N2s
+  274  curl -X DELETE -H 'x-auth-token:70kMOnng90WEk3W5TXHC_N2s' http://localhost:8080/auth-tokens/qvUKq4h2mHcZjZCJeRWO2tOb
+  275  curl -X DELETE -H 'x-auth-token:CoAICuAQS4-xZ9Wa4JMPt7FJ' http://localhost:8080/auth-tokens/qvUKq4h2mHcZjZCJeRWO2tOb
+  276  curl -X DELETE -H 'x-auth-token:CoAICuAQS4-xZ9Wa4JMPt7FJ' http://localhost:8080/auth-tokens/CoAICuAQS4-xZ9Wa4JMPt7FJ
+  277  curl -X PUT -H 'x-auth-token:DuNX0MsOzlhAlA2CrcRGeRUD' http://localhost:8080/users/GRztnufofmAHwXOAgmcky04Y -d email=kingst%40ucdavis.edu
+  278  curl http://localhost:8080/auth-tokens -d username=kingst -d password=123456
+  279  curl http://localhost:8080/auth-tokens -d username=honey -d password=123456
+  280  curl -X PUT -H 'x-auth-token:5PKIUoBROtdFocW2XtFp9AIs' http://localhost:8080/users/5PKIUoBROtdFocW2XtFp9AIs -d email=kingst%40ucdavis.edu
+  281  curl -X PUT -H 'x-auth-token:5PKIUoBROtdFocW2XtFp9AIs' http://localhost:8080/users/KOjW5b1EOOd5MXlKlEIqn6h0 -d email=kingst%40ucdavis.edu
+  282  curl http://localhost:8080/auth-tokens -d username=kingst -d password=123456
+  283  curl http://localhost:8080/auth-tokens -d username=honey -d password=123456
+  284  curl -X PUT -H 'x-auth-token:niv9F2zA-QPG90mrIHBbKlpu' http://localhost:8080/users/VOQQcLVsfN6T4mGsNARHmOwm -d email=kingst%40ucdavis.edu
+  285  curl -X PUT -H 'x-auth-token:r3guXPwalc3F5Bk-2YZhlW7O' http://localhost:8080/users/VOQQcLVsfN6T4mGsNARHmOwm -d email=kingst%40ucdavis.edu
+  286  curl -X PUT -H 'x-auth-token:S43-BNbYiWCD_aKK2fPIDA6U' http://localhost:8080/users/VOQQcLVsfN6T4mGsNARHmOwm -d email=kingst%40ucdavis.gov
+  287  curl -X PUT -H 'x-auth-token:S43-BNbYiWCD_aKK2fPIDA6U' http://localhost:8080/users/VOQQcLVsfN6T4mGsNARHmOwm 
+  288  curl -X PUT -H 'x-auth-token:S43-BNbYiWCD_aKK2fPIDA6U' http://localhost:8080/users/VOQQcLVsfN6T4mGsNARHmOwm -d email=kingst%40ucdavis.gov
+  289  curl -X GET -H 'x-auth-token:S43-BNbYiWCD_aKK2fPIDA6U' http://localhost:8080/users/VOQQcLVsfN6T4mGsNARHmOwm
+  290  history
+  291  pwd
+  292  history > /vagrant/Kevin/hw42021/gunrock_web/client_cmdlist

@@ -25,10 +25,83 @@ AccountService::AccountService() : HttpService("/users") {
   
 }
 
+
+void AccountService::createResponse(HTTPResponse *response, User *u) {
+
+    // now generate response
+    Document document;
+    Document::AllocatorType& a = document.GetAllocator();
+
+    Value o;
+    o.SetObject();
+    o.AddMember("balance", u->balance, a);
+    o.AddMember("email", u->email, a);
+
+    document.Swap(o);
+    StringBuffer buffer;
+    PrettyWriter<StringBuffer> writer(buffer);
+    document.Accept(writer);
+
+    // set the correct response objects.
+    response->setStatus(200);
+    response->setContentType("application/json");
+    response->setBody(buffer.GetString() + string("\n"));
+
+    return;
+}
+
+// This can be a AccountService method.
+User * AccountService::getUserAndCheckForErrors(HTTPRequest *request) {
+
+    User *u;
+
+    string user_id;
+    string paths = request->getPath();
+
+    u = getAuthenticatedUser(request);
+    
+    std::string pathprefix = "/users";
+    std::size_t pos = paths.find(pathprefix);
+
+    // pos has to equial the begin of the path, or error.
+    pos += pathprefix.length();
+
+    // find token to be deleted from path/url command, ignore "/"
+    user_id = paths.substr(pos+1);
+
+    if (u->user_id != user_id) {
+	// get user info for a different user id
+        throw ClientError::forbidden();
+    }
+
+    return u;
+}
+
 void AccountService::get(HTTPRequest *request, HTTPResponse *response) {
 
+    User *u;
+
+    u = getUserAndCheckForErrors(request);
+    
+    // now generate response
+    createResponse(response, u);
+
+    return;
 }
 
 void AccountService::put(HTTPRequest *request, HTTPResponse *response) {
 
+    User *u;
+    string email;
+
+    u = getUserAndCheckForErrors(request);
+
+    // need update user's email address
+    WwwFormEncodedDict dict = request->formEncodedBody();
+    email = dict.get("email");
+    u->email = email;
+
+    // now generate response
+    createResponse(response, u);
+   
 }
