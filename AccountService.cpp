@@ -26,7 +26,7 @@ AccountService::AccountService() : HttpService("/users") {
 }
 
 
-void AccountService::createResponse(HTTPResponse *response, User *u) {
+void createResponse(HTTPResponse *response, User *u) {
 
     // now generate response
     Document document;
@@ -51,14 +51,11 @@ void AccountService::createResponse(HTTPResponse *response, User *u) {
 }
 
 // This can be a AccountService method.
-User * AccountService::getUserAndCheckForErrors(HTTPRequest *request) {
-
-    User *u;
+User * getUserAndCheckForErrors(HTTPRequest *request, User *u) {
 
     string user_id;
     string paths = request->getPath();
 
-    u = getAuthenticatedUser(request);
     
     std::string pathprefix = "/users";
     std::size_t pos = paths.find(pathprefix);
@@ -81,7 +78,8 @@ void AccountService::get(HTTPRequest *request, HTTPResponse *response) {
 
     User *u;
 
-    u = getUserAndCheckForErrors(request);
+    u = getAuthenticatedUser(request);
+    getUserAndCheckForErrors(request, u);
     
     // now generate response
     createResponse(response, u);
@@ -91,10 +89,11 @@ void AccountService::get(HTTPRequest *request, HTTPResponse *response) {
 
 void AccountService::put(HTTPRequest *request, HTTPResponse *response) {
 
-    User *u;
     string email;
+    User *u;
 
-    u = getUserAndCheckForErrors(request);
+    u = getAuthenticatedUser(request);
+    getUserAndCheckForErrors(request, u);
 
     // need update user's email address
     WwwFormEncodedDict dict = request->formEncodedBody();
