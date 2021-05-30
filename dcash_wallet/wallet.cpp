@@ -92,6 +92,7 @@ int process_auth_cmd(vector<string> &cmds)
     // check response
     if (!response->success()) {
         cout << "Error" << endl;
+	delete response;
 	return (-1);
     }
 
@@ -101,11 +102,14 @@ int process_auth_cmd(vector<string> &cmds)
     // https://rapidjson.org/md_doc_tutorial.html
     //
     Document *d = response->jsonBody();
+
+    delete response;
+    delete client;
+
     if ((!d->HasMember("auth_token")) ||
             (!d->HasMember("user_id"))) {
         cout << "Error" << endl;
         delete d;
-        delete client;
 	return (-1);
     }
 
@@ -117,7 +121,6 @@ int process_auth_cmd(vector<string> &cmds)
     cout << "user_id " << new_user_id << endl;
 
     delete d;
-    delete client;
 
     // - we need swith with different user, auth first to get current user id always.
     // - if return a different user id, that imply a differet auth/user or server bugs.
@@ -141,11 +144,12 @@ int process_auth_cmd(vector<string> &cmds)
     auth_body = dict2.encode();
 
     response = client->put(users_path, auth_body);
+    delete client;
     
     // check response
     if (!response->success()) {
         cout << "Error" << endl;
-        delete client;
+	delete response;
 	return (-1);
     }
 
@@ -158,8 +162,8 @@ int process_auth_cmd(vector<string> &cmds)
     if ((!d->HasMember("balance")) ||
             (!d->HasMember("email"))) {
         cout << "Error" << endl;
-        delete client;
         delete d;
+	delete response;
 	return (-1);
     }
 
@@ -170,7 +174,7 @@ int process_auth_cmd(vector<string> &cmds)
     printf("Balance: $%0.2f\n", value);
 
     delete d;
-    delete client;
+    delete response;
 
     // if we get a second new token, we shall del our old token on server.
     user_id = new_user_id;
@@ -193,7 +197,6 @@ int process_auth_cmd(vector<string> &cmds)
     // update auth_token
 
     response = client->del(auth_path);
-    
     delete client;
 
     if (!response->success()) {
@@ -203,6 +206,7 @@ int process_auth_cmd(vector<string> &cmds)
     }
 
     auth_token = new_auth_token;
+    delete response;
     return 0;
 }
 
@@ -224,12 +228,12 @@ int process_balance_cmd(vector<string> &cmds)
 
     // use GET command to get balance.
     response = client->get(users_path);
-    
     delete client;
 
     // check response
     if (!response->success()) {
         cout << "Error" << endl;
+	delete response;
 	return (-1);
     }
 
@@ -243,6 +247,7 @@ int process_balance_cmd(vector<string> &cmds)
             (!d->HasMember("email"))) {
         cout << "Error" << endl;
         delete d;
+	delete response;
 	return (-1);
     }
 
@@ -253,13 +258,126 @@ int process_balance_cmd(vector<string> &cmds)
     printf("Balance: $%0.2f\n", value);
 
     delete d;
+    delete response;
     return 0;
+}
+
+//
+// XXX - this shall work - use curl command worked.
+//
+HTTPClientResponse *get_token_from_stripe(vector<string> &cmds)
+{
+    HTTPClientResponse *response;
+
+    // need SSL.
+    HttpClient client("api.stripe.com", 443, true);
+    client.set_header("Autherization", string("Bearer ") + PUBLISHABLE_KEY);
+    client.set_header("Content-Type", "application/x-www-form-urlencoded");
+
+    string token_body;
+
+    // handling request body
+
+    WwwFormEncodedDict dict;
+    dict.set("card[number]", cmds[2]);
+    dict.set("card[exp_month]", cmds[4]);
+    dict.set("card[exp_year]", cmds[3]);
+    dict.set("card[cvc]", cmds[5]);
+    token_body = dict.encode();
+
+    // send deposit request for token with stripe.
+    response = client.post("/v1/tokens", token_body);
+    return response;
+
 }
 
 // deposit command handler
 int process_deposit_cmd(vector<string> &cmds)
 {
     cout << "process deposit cmd" << endl;
+
+    HttpClient *client;
+    HTTPClientResponse *response;
+    Document *d;
+    string stripe_token = "tok_credit_card";
+
+    // XXX - Step 1 - get a token id from stripe 
+    // XXX - This step has problems with stripe.com...
+    // XXX - comment out below when it works.
+#ifdef STRIPE_WORKS_XXX
+
+    response = get_token_from_stripe(cmds);
+
+    // check response for tokenization
+    if (!response->success()) {
+        cout << "Error" << endl;
+        return (-1);
+    }
+  
+    d = response->jsonBody();
+    string stripe_token = (*d)["id"].GetString();
+    delete response;
+    delete d;
+
+#endif
+
+    cout << "succeed for (STRIPE TOKEN) " << stripe_token << endl;
+    
+    //
+    // Step 2 - send the deposit and charge id to the server
+    //
+    // deposit is saved as cents on server instead of dollar unit.
+    float value = stof(cmds[1]);
+    value *= 100;
+    int amount = value; 
+
+    client = new HttpClient(API_SERVER_HOST.c_str(), API_SERVER_PORT);
+
+    // we now need update our email address with account service.
+    string deposit_path("/deposits");
+    client->set_header("x-auth-token", auth_token);
+    client->set_header("Content-Type", "application/x-www-form-urlencoded");
+
+    string deposit_body;
+
+    // handling request body
+    // depost body contains amount and stripe token fields.
+    WwwFormEncodedDict dict;
+    dict.set("amount", amount);
+    dict.set("stripe_token", stripe_token);
+    deposit_body = dict.encode();
+
+    // send depost request.
+    response = client->post(deposit_path, deposit_body);
+    delete client;
+
+    // check response
+    if (!response->success()) {
+        cout << "Error" << endl;
+	return (-1);
+    }
+
+    cout << "succeed for (DEPOSIT) " << auth_token << endl;
+    // 
+    // https://rapidjson.org/md_doc_tutorial.html
+    //
+    d = response->jsonBody();
+    if (!d->HasMember("balance")) {
+        cout << "Error" << endl;
+        delete d;
+	delete response;
+	return (-1);
+    }
+
+    // There is a list of deposit history returned. we only display Balance field.
+    int balance = (*d)["balance"].GetInt();
+    value = balance / 100;
+
+    // use printf for formated print.
+    printf("Balance: $%0.2f\n", value);
+
+    delete d;
+    delete response;
     return 0;
 }
 
@@ -267,6 +385,64 @@ int process_deposit_cmd(vector<string> &cmds)
 int process_send_cmd(vector<string> &cmds)
 {
     cout << "process send cmd" << endl;
+
+    HttpClient *client;
+    HTTPClientResponse *response;
+
+    client = new HttpClient(API_SERVER_HOST.c_str(), API_SERVER_PORT);
+
+    // we now need update our email address with account service.
+    string trans_path("/transfers");
+    string trans_body;
+    client->set_header("x-auth-token", auth_token);
+    client->set_header("Content-Type", "application/x-www-form-urlencoded");
+
+    // transfer amount is saved as cents on server.
+    float value = stof(cmds[2]);
+    value *= 100;
+    int amount = value; 
+
+    // handling request body
+    // depost body contains amount and stripe token fields.
+    WwwFormEncodedDict dict;
+    dict.set("to", cmds[1]);
+    dict.set("amount", amount);
+    trans_body = dict.encode();
+
+    // send transfers post request.
+    response = client->post(trans_path, trans_body);
+    
+    delete client;
+
+    // check response
+    if (!response->success()) {
+        cout << "Error" << endl;
+	delete response;
+	return (-1);
+    }
+
+    cout << "succeed for (Transfer CMD) " << auth_token << endl;
+
+    // 
+    // https://rapidjson.org/md_doc_tutorial.html
+    //
+    Document *d = response->jsonBody();
+    if (!d->HasMember("balance")) {
+        cout << "Error" << endl;
+        delete d;
+	delete response;
+	return (-1);
+    }
+
+    // There is a list of transfer history returned. we only display Balance field.
+    int balance = (*d)["balance"].GetInt();
+    value = balance / 100;
+
+    // use printf for formated print.
+    printf("Balance: $%0.2f\n", value);
+
+    delete d;	
+    delete response;
     return 0;
 }
 
