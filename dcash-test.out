@@ -1,0 +1,43 @@
+vagrant@vagrant:/vagrant/Kevin/hw42021/gunrock_web$ 
+vagrant@vagrant:/vagrant/Kevin/hw42021/gunrock_web$ 
+vagrant@vagrant:/vagrant/Kevin/hw42021/gunrock_web$ dcash_wallet/dcash 
+D$> auth honey 123 honey@ucdavis.edu
+succeed... for POST /auth-tokens 
+auth_token DZsFdAwfD9-u7BAXLgpitRnn
+user_id uAYo4rYGOd89lw_y88KnOU_5
+succeed...for PUT /users{user_id} 
+Balance: $0.00
+D$> auth kingst 123 kingst@ucdavis.edu
+succeed... for POST /auth-tokens 
+auth_token 84Udjq6uUECKcj5YoRUB4kEu
+user_id 14bxW3i69FJ6k2Q5HIBO74dg
+succeed...for PUT /users{user_id} 
+Balance: $0.00
+succeed... for DELETE /auth-tokens{auth_token} DZsFdAwfD9-u7BAXLgpitRnn
+D$> deposit 25.00 4242424242424242 2024 02 322
+process deposit cmd
+succeed for (STRIPE TOKEN) tok_credit_card
+succeed for (DEPOSIT) 84Udjq6uUECKcj5YoRUB4kEu
+Balance: $25.00
+D$> deposit 25.00 4242424242424242 2024 02 322
+process deposit cmd
+succeed for (STRIPE TOKEN) tok_credit_card
+succeed for (DEPOSIT) 84Udjq6uUECKcj5YoRUB4kEu
+Balance: $50.00
+D$> send honey 5.00
+process send cmd
+succeed for (Transfer CMD) 84Udjq6uUECKcj5YoRUB4kEu
+Balance: $45.00
+D$> auth honey 123 honey@ucdavis.edu
+succeed... for POST /auth-tokens 
+auth_token srG3kurvu8bT9MiUVOxpsBwS
+user_id uAYo4rYGOd89lw_y88KnOU_5
+succeed...for PUT /users{user_id} 
+Balance: $5.00
+succeed... for DELETE /auth-tokens{auth_token} 84Udjq6uUECKcj5YoRUB4kEu
+D$> balance
+ - process balance cmd - 
+succeed for (BALANCE).GET /users{user_id} uAYo4rYGOd89lw_y88KnOU_5
+Balance: $5.00
+D$> logout
+
