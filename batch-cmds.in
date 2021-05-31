@@ -1,0 +1,9 @@
+auth honey 123 honey@ucdavis.edu
+auth kingst 123 kingst@ucdavis.edu
+deposit 25.00 4242424242424242 2024 02 322
+send honey 5.00
+auth honey 123 honey@ucdavis.edu
+balance
+deposit 10.10 4242424242424242 2024 02 322
+auth kingst 123 kingst@ucdavis.edu
+deposit 5.99 4242424242424242 2024 02 322
