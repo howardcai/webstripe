@@ -96,7 +96,7 @@ int process_auth_cmd(vector<string> &cmds)
 	return (-1);
     }
 
-    cout << "succeed... for POST /auth-tokens " << endl;
+    // cout << "succeed... for POST /auth-tokens " << endl;
 
     // 
     // https://rapidjson.org/md_doc_tutorial.html
@@ -117,17 +117,10 @@ int process_auth_cmd(vector<string> &cmds)
     string new_auth_token = (*d)["auth_token"].GetString();
     string new_user_id = (*d)["user_id"].GetString();
 
-    cout << "auth_token " << new_auth_token << endl;
-    cout << "user_id " << new_user_id << endl;
+    // cout << "auth_token " << new_auth_token << endl;
+    // cout << "user_id " << new_user_id << endl;
 
     delete d;
-
-    // - we need swith with different user, auth first to get current user id always.
-    // - if return a different user id, that imply a differet auth/user or server bugs.
-    // if (!user_id.empty() && new_user_id != user_id) {
-    //    cout << "Error" << endl;
-    //    return (-1);
-    // }
 
     // start a new client and server connection
 
@@ -153,7 +146,7 @@ int process_auth_cmd(vector<string> &cmds)
 	return (-1);
     }
 
-    cout << "succeed...for PUT /users{user_id} " << endl;
+    // cout << "succeed...for PUT /users{user_id} " << endl;
 
     // 
     // https://rapidjson.org/md_doc_tutorial.html
@@ -168,7 +161,8 @@ int process_auth_cmd(vector<string> &cmds)
     }
 
     int balance = (*d)["balance"].GetInt();
-    float value = balance / 100;
+    float value = balance;
+    value /= 100;
 
     // use printf for formated print.
     printf("Balance: $%0.2f\n", value);
@@ -202,7 +196,7 @@ int process_auth_cmd(vector<string> &cmds)
     if (!response->success()) {
         cout << "Error" << endl;
     } else {
-        cout << "succeed... for DELETE /auth-tokens{auth_token} " << auth_token << endl;
+        // cout << "succeed... for DELETE /auth-tokens{auth_token} " << auth_token << endl;
     }
 
     auth_token = new_auth_token;
@@ -213,7 +207,7 @@ int process_auth_cmd(vector<string> &cmds)
 // balance command handler
 int process_balance_cmd(vector<string> &cmds)
 {
-    cout << " - process balance cmd - " << endl;
+    // cout << " - process balance cmd - " << endl;
 
     HttpClient *client;
     HTTPClientResponse *response;
@@ -237,7 +231,7 @@ int process_balance_cmd(vector<string> &cmds)
 	return (-1);
     }
 
-    cout << "succeed for (BALANCE).GET /users{user_id} " << user_id << endl;
+    // cout << "succeed for (BALANCE).GET /users{user_id} " << user_id << endl;
 
     // 
     // https://rapidjson.org/md_doc_tutorial.html
@@ -252,7 +246,8 @@ int process_balance_cmd(vector<string> &cmds)
     }
 
     int balance = (*d)["balance"].GetInt();
-    float value = balance / 100;
+    float value = balance;
+    value /= 100;
 
     // use printf for formated print.
     printf("Balance: $%0.2f\n", value);
@@ -294,7 +289,7 @@ HTTPClientResponse *get_token_from_stripe(vector<string> &cmds)
 // deposit command handler
 int process_deposit_cmd(vector<string> &cmds)
 {
-    cout << "process deposit cmd" << endl;
+    // cout << "process deposit cmd" << endl;
 
     HttpClient *client;
     HTTPClientResponse *response;
@@ -321,7 +316,7 @@ int process_deposit_cmd(vector<string> &cmds)
 
 #endif
 
-    cout << "succeed for (STRIPE TOKEN) " << stripe_token << endl;
+    // cout << "succeed for (STRIPE TOKEN) " << stripe_token << endl;
     
     //
     // Step 2 - send the deposit and charge id to the server
@@ -357,7 +352,7 @@ int process_deposit_cmd(vector<string> &cmds)
 	return (-1);
     }
 
-    cout << "succeed for (DEPOSIT) " << auth_token << endl;
+    // cout << "succeed for (DEPOSIT) " << auth_token << endl;
     // 
     // https://rapidjson.org/md_doc_tutorial.html
     //
@@ -371,7 +366,8 @@ int process_deposit_cmd(vector<string> &cmds)
 
     // There is a list of deposit history returned. we only display Balance field.
     int balance = (*d)["balance"].GetInt();
-    value = balance / 100;
+    value = balance;
+    value /= 100;
 
     // use printf for formated print.
     printf("Balance: $%0.2f\n", value);
@@ -384,7 +380,7 @@ int process_deposit_cmd(vector<string> &cmds)
 // send command handler
 int process_send_cmd(vector<string> &cmds)
 {
-    cout << "process send cmd" << endl;
+    // cout << "process send cmd" << endl;
 
     HttpClient *client;
     HTTPClientResponse *response;
@@ -421,7 +417,7 @@ int process_send_cmd(vector<string> &cmds)
 	return (-1);
     }
 
-    cout << "succeed for (Transfer CMD) " << auth_token << endl;
+    // cout << "succeed for (Transfer CMD) " << auth_token << endl;
 
     // 
     // https://rapidjson.org/md_doc_tutorial.html
@@ -436,7 +432,8 @@ int process_send_cmd(vector<string> &cmds)
 
     // There is a list of transfer history returned. we only display Balance field.
     int balance = (*d)["balance"].GetInt();
-    value = balance / 100;
+    value = balance;
+    value /= 100;
 
     // use printf for formated print.
     printf("Balance: $%0.2f\n", value);
