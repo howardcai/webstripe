@@ -70,7 +70,6 @@ void DepositService::post(HTTPRequest *request, HTTPResponse *response) {
     // XXX - uncomment this portion when STRIPE Tokens works.
     // XXX - use curl command worked however with the same parameters.
 
-#ifdef STRIPE_WORKS_XXX
     HTTPClientResponse *stripe_rsp;
     stripe_rsp = get_stripe_charge_info(m_db, stripe_token, amount);
     
@@ -85,7 +84,6 @@ void DepositService::post(HTTPRequest *request, HTTPResponse *response) {
 
     delete d;
     delete stripe_rsp;
-#endif
 
     // - succeed with Stripe:
     // - update user's account balance and record and respond.

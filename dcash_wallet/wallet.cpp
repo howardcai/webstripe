@@ -266,7 +266,7 @@ HTTPClientResponse *get_token_from_stripe(vector<string> &cmds)
 
     // need SSL.
     HttpClient client("api.stripe.com", 443, true);
-    client.set_header("Autherization", string("Bearer ") + PUBLISHABLE_KEY);
+    client.set_header("Authorization", string("Bearer ") + PUBLISHABLE_KEY);
     client.set_header("Content-Type", "application/x-www-form-urlencoded");
 
     string token_body;
@@ -299,7 +299,6 @@ int process_deposit_cmd(vector<string> &cmds)
     // XXX - Step 1 - get a token id from stripe 
     // XXX - This step has problems with stripe.com...
     // XXX - comment out below when it works.
-#ifdef STRIPE_WORKS_XXX
 
     response = get_token_from_stripe(cmds);
 
@@ -310,11 +309,10 @@ int process_deposit_cmd(vector<string> &cmds)
     }
   
     d = response->jsonBody();
-    string stripe_token = (*d)["id"].GetString();
+    stripe_token = (*d)["id"].GetString();
     delete response;
     delete d;
 
-#endif
 
     // cout << "succeed for (STRIPE TOKEN) " << stripe_token << endl;
     

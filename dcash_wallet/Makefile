@@ -1,4 +1,4 @@
-all: dcash
+all: dcash test1
 
 CC = g++
 CFLAGS = -g -Werror -Wall -I/usr/local/opt/openssl@1.1/include -I include -I ../shared/include
@@ -7,7 +7,11 @@ VPATH = ../shared
 
 OBJS = wallet.o MySocket.o HTTPClientResponse.o HttpClient.o MySslSocket.o WwwFormEncodedDict.o Base64.o StringUtils.o
 
+OBJS2 = test1.o MySocket.o HTTPClientResponse.o HttpClient.o MySslSocket.o WwwFormEncodedDict.o Base64.o StringUtils.o
 -include $(OBJS:.o=.d)
+
+test1: $(OBJS2)
+	$(CC) -o $@ $(CFLAGS) $(OBJS2) $(LDFLAGS) 
 
 dcash: $(OBJS)
 	$(CC) -o $@ $(CFLAGS) $(OBJS) $(LDFLAGS) 
