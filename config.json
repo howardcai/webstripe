@@ -1,0 +1,6 @@
+{
+"api_server_port": 8080,
+"api_server_host": "localhost",
+"stripe_secret_key": "sk_test_51Ivo89Hx2wJq3xlEdyand7vWGolXNLoh7yYLvWjMwZpsiBVxy5gL2EgVWZiRBOUlGd3UzBR9hlQ3ILSC9KbhMk3y00gH9Kxz9m",
+"stripe_publishable_key": "pk_test_51Ivo89Hx2wJq3xlEU3wc6xLSRFkNOlbKiHF4sV55IheAlX6W3fGtbe1TfxGym8Wozmx1ld3ddf7IiX1bb4qOffhC00n5xDlKOc"
+}
